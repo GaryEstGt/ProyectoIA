@@ -20,6 +20,19 @@ public class Pelicula {
     private String año;
     private String genero;
     private double score;
+
+    public Pelicula(String titulo, String director, String color, String actorPrincipal, String lenguaje, String pais, String contenido, String año, String genero, double score) {
+        this.titulo = titulo;
+        this.director = director;
+        this.color = color;
+        this.actorPrincipal = actorPrincipal;
+        this.lenguaje = lenguaje;
+        this.pais = pais;
+        this.contenido = contenido;
+        this.año = año;
+        this.genero = genero;
+        this.score = score;
+    }
     public String getTitulo() {
         return titulo;
     }
@@ -90,6 +103,13 @@ public class Pelicula {
 
     public void setScore(double score) {
         this.score = score;
+    }
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
 }
