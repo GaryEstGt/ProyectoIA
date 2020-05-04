@@ -7,13 +7,14 @@ package com.mycompany.proyectoia;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import java.awt.List;
+import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,7 +42,7 @@ public class Principal extends javax.swing.JFrame {
         cb_Campos.addItem("Año");
         cb_Campos.addItem("Genero");
         leerCSV();
-        LlenarTabla();
+        LlenarTabla(peliculas);
     }
 
     /**
@@ -184,6 +185,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void bnt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_BuscarActionPerformed
         // TODO add your handling code here:
+        realizarBusqueda(txt_Buscar.getText());
     }//GEN-LAST:event_bnt_BuscarActionPerformed
 
     /**
@@ -237,7 +239,7 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void LlenarTabla(){
+    public void LlenarTabla(List<Pelicula>lista){
         modelo = new DefaultTableModel();
         tb_Pelis.setModel(modelo);
         modelo.addColumn("Titulo");
@@ -249,20 +251,30 @@ public class Principal extends javax.swing.JFrame {
         modelo.addColumn("Año");
         modelo.addColumn("Genero");
         modelo.addColumn("Punteo");
-        for (int i = 0; i < peliculas.size(); i++) {
+        for (int i = 0; i < lista.size(); i++) {
             Object []object = new Object[10];
-            object[0] = peliculas.get(i).getTitulo();
-            object[1] = peliculas.get(i).getDirector(); 
-            object[2] = peliculas.get(i).getColor(); 
-            object[3] = peliculas.get(i).getActorPrincipal(); 
-            object[4] = peliculas.get(i).getLenguaje(); 
-            object[5] = peliculas.get(i).getPais(); 
-            object[6] = peliculas.get(i).getContenido(); 
-            object[7] = peliculas.get(i).getAño();
-            object[8] = peliculas.get(i).getGenero();
-            object[9] = peliculas.get(i).getScore();            
+            object[0] = lista.get(i).getTitulo();
+            object[1] = lista.get(i).getDirector(); 
+            object[2] = lista.get(i).getColor(); 
+            object[3] = lista.get(i).getActorPrincipal(); 
+            object[4] = lista.get(i).getLenguaje(); 
+            object[5] = lista.get(i).getPais(); 
+            object[6] = lista.get(i).getContenido(); 
+            object[7] = lista.get(i).getAño();
+            object[8] = lista.get(i).getGenero();
+            object[9] = lista.get(i).getScore();            
             modelo.addRow(object);
         }
+    }
+    public void realizarBusqueda(String criterio){
+        switch (cb_Campos.getSelectedItem().toString()) {
+            case "Titulo":       
+             List<Pelicula> resultado=peliculas.stream().filter(Pelicula->Pelicula.getTitulo().equals(criterio)).collect(Collectors.toList());
+                break;
+            default:
+                throw new AssertionError();
+        }
+  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
