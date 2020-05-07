@@ -33,6 +33,9 @@ public class Pelicula {
         this.genero = genero;
         this.score = score;
     }
+    public Pelicula(){
+        
+    }
     public String getTitulo() {
         return titulo;
     }
