@@ -6,6 +6,7 @@
 package com.mycompany.proyectoia;
 
 import static com.mycompany.proyectoia.Principal.modelo;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
  * @author garya
  */
 public class MostrarPelicula extends javax.swing.JFrame {
-    Pelicula peliActual=new Pelicula();
+    Pelicula peliActual;
+    public static Bayes bot=new Bayes();
     /**
      * Creates new form MostrarPelicula
      */
@@ -51,7 +53,7 @@ public class MostrarPelicula extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txt_Pais = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txt_Recomendación = new javax.swing.JTextField();
+        txt_Recomendacion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btn_like = new javax.swing.JButton();
         btn_dislike = new javax.swing.JButton();
@@ -134,10 +136,10 @@ public class MostrarPelicula extends javax.swing.JFrame {
 
         jLabel9.setText("Recomendación");
 
-        txt_Recomendación.setEnabled(false);
-        txt_Recomendación.addActionListener(new java.awt.event.ActionListener() {
+        txt_Recomendacion.setEnabled(false);
+        txt_Recomendacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_RecomendaciónActionPerformed(evt);
+                txt_RecomendacionActionPerformed(evt);
             }
         });
 
@@ -198,7 +200,7 @@ public class MostrarPelicula extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addGap(129, 129, 129))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(txt_Recomendación, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_Recomendacion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(113, 113, 113)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -233,7 +235,7 @@ public class MostrarPelicula extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_Recomendación, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_Recomendacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -304,20 +306,41 @@ public class MostrarPelicula extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_Titulo6ActionPerformed
 
-    private void txt_RecomendaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RecomendaciónActionPerformed
+    private void txt_RecomendacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RecomendacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_RecomendaciónActionPerformed
+    }//GEN-LAST:event_txt_RecomendacionActionPerformed
 
     private void btn_likeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_likeActionPerformed
         // TODO add your handling code here:
+        bot.recomendaciones.pActor.add(peliActual.getActorPrincipal());
+        bot.recomendaciones.pDirector.add(peliActual.getDirector());
+        bot.recomendaciones.pColor.add(peliActual.getColor());
+        bot.recomendaciones.pContenido.add(peliActual.getContenido());
+        bot.recomendaciones.pAño.add(peliActual.getAño());
+        bot.recomendaciones.pPais.add(peliActual.getPais());
+        bot.recomendaciones.pLenguaje.add(peliActual.getLenguaje());
+        bot.recomendaciones.pGenero.addAll(peliActual.genero);
+        Voto nuevoVoto=new Voto(peliActual,true);      
+        bot.votos.add(nuevoVoto);
     }//GEN-LAST:event_btn_likeActionPerformed
 
     private void btn_dislikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dislikeActionPerformed
         // TODO add your handling code here:
+         bot.noRecomendaciones.pActor.add(peliActual.getActorPrincipal());
+        bot.noRecomendaciones.pDirector.add(peliActual.getDirector());
+        bot.noRecomendaciones.pColor.add(peliActual.getColor());
+        bot.noRecomendaciones.pContenido.add(peliActual.getContenido());
+        bot.noRecomendaciones.pAño.add(peliActual.getAño());
+        bot.noRecomendaciones.pPais.add(peliActual.getPais());
+        bot.noRecomendaciones.pLenguaje.add(peliActual.getLenguaje());
+        bot.noRecomendaciones.pGenero.addAll(peliActual.genero);
+        Voto nuevoVoto=new Voto(peliActual,false);      
+        bot.votos.add(nuevoVoto);
     }//GEN-LAST:event_btn_dislikeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        peliActual=new Pelicula();
         int filaseleccionada = tb_res.getSelectedRow();
         peliActual.setTitulo((String)tb_res.getValueAt(filaseleccionada, 0));
         peliActual.setDirector((String)tb_res.getValueAt(filaseleccionada, 1));
@@ -327,7 +350,11 @@ public class MostrarPelicula extends javax.swing.JFrame {
         peliActual.setPais((String)tb_res.getValueAt(filaseleccionada, 5));
         peliActual.setContenido((String)tb_res.getValueAt(filaseleccionada, 6));
         peliActual.setAño((String)tb_res.getValueAt(filaseleccionada, 7));
-        peliActual.setGenero((String)tb_res.getValueAt(filaseleccionada, 8));
+        String genero=(String)tb_res.getValueAt(filaseleccionada, 8);
+        String[] generos=genero.split("\\|");
+        for (int i = 0; i < generos.length; i++) {
+            peliActual.genero.add(generos[i]);
+        }
         peliActual.setScore((Double)tb_res.getValueAt(filaseleccionada, 9));
         txt_Titulo.setText(peliActual.getTitulo());
         txt_Director.setText(peliActual.getDirector());
@@ -335,7 +362,10 @@ public class MostrarPelicula extends javax.swing.JFrame {
         txt_Genero.setText(peliActual.getGenero());
         txt_Año.setText(peliActual.getAño());
         txt_Pais.setText(peliActual.getPais());
-        
+        if(bot.votos.size()>2){
+            Double var1=(bot.NaiveBayes(peliActual)*100);
+            txt_Recomendacion.setText(String.format("%.2f", var1));
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 public void LlenarTabla(List<Pelicula>lista){
@@ -423,7 +453,7 @@ public void LlenarTabla(List<Pelicula>lista){
     private javax.swing.JTextField txt_Director;
     private javax.swing.JTextField txt_Genero;
     private javax.swing.JTextField txt_Pais;
-    private javax.swing.JTextField txt_Recomendación;
+    private javax.swing.JTextField txt_Recomendacion;
     private javax.swing.JTextField txt_Titulo;
     private javax.swing.JTextField txt_Titulo6;
     // End of variables declaration//GEN-END:variables

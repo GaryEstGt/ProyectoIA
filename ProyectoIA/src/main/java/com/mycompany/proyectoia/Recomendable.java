@@ -5,6 +5,7 @@
  */
 package com.mycompany.proyectoia;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +14,12 @@ import java.util.Map;
  * @author garya
  */
 public class Recomendable {
-    HashMap<String,Double> pDirector = new HashMap<>();
-    HashMap<String,Double> pColor = new HashMap<>();
-    HashMap<String,Double> pActor = new HashMap<>();
-    HashMap<String,Double> pLenguaje = new HashMap<>();
-    HashMap<String,Double> pPais = new HashMap<>();
-    HashMap<String,Double> pContenido = new HashMap<>();
-    HashMap<String,Double> pAño = new HashMap<>();
-    HashMap<String,Double> pGenero = new HashMap<>();
+    public ArrayList<String> pDirector = new ArrayList<>();
+    public ArrayList<String> pColor = new ArrayList<>();
+    public ArrayList<String> pActor = new ArrayList<>();
+    public ArrayList<String> pLenguaje = new ArrayList<>();
+    public ArrayList<String> pPais = new ArrayList<>();
+    public ArrayList<String> pContenido = new ArrayList<>();
+    public ArrayList<String> pAño = new ArrayList<>();
+    public ArrayList<String> pGenero = new ArrayList<>();
 }

@@ -229,7 +229,11 @@ public class Principal extends javax.swing.JFrame {
                 // nextLine[] is an array of values from the line
                 cont++;
                 System.out.println(cont);
-                Pelicula peli= new Pelicula(nextLine[0],nextLine[1],nextLine[2],nextLine[3],nextLine[4],nextLine[5],nextLine[6],nextLine[7],nextLine[8],Double.parseDouble(nextLine[9]));
+                Pelicula peli= new Pelicula(nextLine[0],nextLine[1],nextLine[2],nextLine[3],nextLine[4],nextLine[5],nextLine[6],nextLine[7],Double.parseDouble(nextLine[9]));
+                String[] generos=nextLine[8].split("\\|");
+                for (int i = 0; i < generos.length; i++) {
+                   peli.genero.add(generos[i]);
+                }
                 peliculas.add(peli);
             }  } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

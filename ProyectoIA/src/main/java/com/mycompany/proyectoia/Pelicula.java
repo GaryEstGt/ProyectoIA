@@ -5,6 +5,9 @@
  */
 package com.mycompany.proyectoia;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author garya
@@ -18,10 +21,10 @@ public class Pelicula {
     private String pais;
     private String contenido;
     private String año;
-    private String genero;
+    public ArrayList<String> genero=new ArrayList();
     private double score;
 
-    public Pelicula(String titulo, String director, String color, String actorPrincipal, String lenguaje, String pais, String contenido, String año, String genero, double score) {
+    public Pelicula(String titulo, String director, String color, String actorPrincipal, String lenguaje, String pais, String contenido, String año, double score) {
         this.titulo = titulo;
         this.director = director;
         this.color = color;
@@ -30,7 +33,6 @@ public class Pelicula {
         this.pais = pais;
         this.contenido = contenido;
         this.año = año;
-        this.genero = genero;
         this.score = score;
     }
     public Pelicula(){
@@ -107,12 +109,12 @@ public class Pelicula {
     public void setScore(double score) {
         this.score = score;
     }
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public String getGenero(){
+        String texto="";
+        for (int i = 0; i < genero.size(); i++) {
+           texto+=genero.get(i)+"|";
+        }
+        return texto;
     }
 
 }

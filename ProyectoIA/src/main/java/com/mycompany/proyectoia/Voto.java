@@ -12,6 +12,22 @@ package com.mycompany.proyectoia;
 public class Voto {
  private Pelicula peliculaVotada;
  private boolean recomendable;
+    public Pelicula getPeliculaVotada() {
+        return peliculaVotada;
+    }
+
+    public void setPeliculaVotada(Pelicula peliculaVotada) {
+        this.peliculaVotada = peliculaVotada;
+    }
+
+    public boolean isRecomendable() {
+        return recomendable;
+    }
+
+    public void setRecomendable(boolean recomendable) {
+        this.recomendable = recomendable;
+    }
+
  
     public Voto(Pelicula peliculaVotada, boolean recomendable) {
         this.peliculaVotada = peliculaVotada;
