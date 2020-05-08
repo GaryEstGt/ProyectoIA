@@ -16,7 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MostrarPelicula extends javax.swing.JFrame {
     Pelicula peliActual;
-    public static Bayes bot=new Bayes();
+    public Bayes bot;
+      public static Recomendable recomendaciones=new Recomendable();
+      public static NoRecomendable noRecomendaciones=new NoRecomendable();
+      public static ArrayList<Voto> votos=new ArrayList<Voto>();
     /**
      * Creates new form MostrarPelicula
      */
@@ -312,30 +315,30 @@ public class MostrarPelicula extends javax.swing.JFrame {
 
     private void btn_likeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_likeActionPerformed
         // TODO add your handling code here:
-        bot.recomendaciones.pActor.add(peliActual.getActorPrincipal());
-        bot.recomendaciones.pDirector.add(peliActual.getDirector());
-        bot.recomendaciones.pColor.add(peliActual.getColor());
-        bot.recomendaciones.pContenido.add(peliActual.getContenido());
-        bot.recomendaciones.pAño.add(peliActual.getAño());
-        bot.recomendaciones.pPais.add(peliActual.getPais());
-        bot.recomendaciones.pLenguaje.add(peliActual.getLenguaje());
-        bot.recomendaciones.pGenero.addAll(peliActual.genero);
+        recomendaciones.pActor.add(peliActual.getActorPrincipal());
+        recomendaciones.pDirector.add(peliActual.getDirector());
+        recomendaciones.pColor.add(peliActual.getColor());
+        recomendaciones.pContenido.add(peliActual.getContenido());
+        recomendaciones.pAño.add(peliActual.getAño());
+        recomendaciones.pPais.add(peliActual.getPais());
+        recomendaciones.pLenguaje.add(peliActual.getLenguaje());
+        recomendaciones.pGenero.addAll(peliActual.genero);
         Voto nuevoVoto=new Voto(peliActual,true);      
-        bot.votos.add(nuevoVoto);
+        votos.add(nuevoVoto);
     }//GEN-LAST:event_btn_likeActionPerformed
 
     private void btn_dislikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dislikeActionPerformed
         // TODO add your handling code here:
-         bot.noRecomendaciones.pActor.add(peliActual.getActorPrincipal());
-        bot.noRecomendaciones.pDirector.add(peliActual.getDirector());
-        bot.noRecomendaciones.pColor.add(peliActual.getColor());
-        bot.noRecomendaciones.pContenido.add(peliActual.getContenido());
-        bot.noRecomendaciones.pAño.add(peliActual.getAño());
-        bot.noRecomendaciones.pPais.add(peliActual.getPais());
-        bot.noRecomendaciones.pLenguaje.add(peliActual.getLenguaje());
-        bot.noRecomendaciones.pGenero.addAll(peliActual.genero);
+         noRecomendaciones.pActor.add(peliActual.getActorPrincipal());
+        noRecomendaciones.pDirector.add(peliActual.getDirector());
+        noRecomendaciones.pColor.add(peliActual.getColor());
+        noRecomendaciones.pContenido.add(peliActual.getContenido());
+        noRecomendaciones.pAño.add(peliActual.getAño());
+        noRecomendaciones.pPais.add(peliActual.getPais());
+        noRecomendaciones.pLenguaje.add(peliActual.getLenguaje());
+        noRecomendaciones.pGenero.addAll(peliActual.genero);
         Voto nuevoVoto=new Voto(peliActual,false);      
-        bot.votos.add(nuevoVoto);
+        votos.add(nuevoVoto);
     }//GEN-LAST:event_btn_dislikeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -362,9 +365,14 @@ public class MostrarPelicula extends javax.swing.JFrame {
         txt_Genero.setText(peliActual.getGenero());
         txt_Año.setText(peliActual.getAño());
         txt_Pais.setText(peliActual.getPais());
-        if(bot.votos.size()>2){
+        if(votos.size()>2){
+            bot=new Bayes();
             Double var1=(bot.NaiveBayes(peliActual)*100);
-            txt_Recomendacion.setText(String.format("%.2f", var1));
+            int valor=rangos(var1);
+            txt_Recomendacion.setText(String.valueOf(valor));
+        }else {
+            int valor=rangos(peliActual.getScore()*10);
+             txt_Recomendacion.setText(String.valueOf(valor));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -396,6 +404,14 @@ public void LlenarTabla(List<Pelicula>lista){
             modelo.addRow(object);
         }
     }
+public int rangos(Double valor){
+    int porcentaje=0;
+    if(valor>0 && valor<31){porcentaje=30;}
+    if(valor>30 && valor<51){porcentaje=50;}
+    if(valor>50 && valor<81){porcentaje=80;}
+    if(valor>81){porcentaje=95;}
+    return porcentaje;
+}
     /**
      * @param args the command line arguments
      */
